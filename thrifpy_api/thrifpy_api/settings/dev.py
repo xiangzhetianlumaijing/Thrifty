@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-@od*na%d^co)jveqbt3-+1q&q_af*09eh7v-r4%u0(n@gix2u5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.5.86", "192.168.0.85"]
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'home',
 ]
 
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', #放在中间件的最上面，就是给响应头加上了一个响应头跨域
 ]
 
 ROOT_URLCONF = 'thrifpy_api.urls'
@@ -198,3 +200,10 @@ REST_FRAMEWORK = {
     # 异常处理
     'EXCEPTION_HANDLER': 'uric_api.utils.exceptions.custom_exception_handler',
 }
+
+# CORS组的配置信息
+CORS_ORIGIN_WHITELIST = (
+    #'www.uric.cn:8080', # 如果这样写不行的话，就加上协议(http://www.uric.cn:8080，因为不同的corsheaders版本可能有不同的要求)
+    'http://192.168.0.85:8080',
+)
+CORS_ALLOW_CREDENTIALS = False  # 是否允许ajax跨域请求时携带cookie，False表示不用，我们后面也用不到cookie，所以关掉它就可以了，以防有人通过cookie攻击网站
