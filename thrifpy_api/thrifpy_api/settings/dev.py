@@ -209,3 +209,6 @@ CORS_ORIGIN_WHITELIST = (
     'http://192.168.0.85:8080',
 )
 CORS_ALLOW_CREDENTIALS = False  # 是否允许ajax跨域请求时携带cookie，False表示不用，我们后面也用不到cookie，所以关掉它就可以了，以防有人通过cookie攻击网站
+
+# 使用自定义的User
+AUTH_USER_MODEL = 'users.User'
